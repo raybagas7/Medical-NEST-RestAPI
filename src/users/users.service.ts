@@ -35,7 +35,7 @@ export class UsersService {
     },
   ];
 
-  findAll(role: 'PATIENT' | 'ADMIN') {
+  findAll(role: 'PATIENT' | 'DOCTOR') {
     if (role) {
       return this.users.filter((user) => user.role === role);
     }
@@ -48,7 +48,7 @@ export class UsersService {
     return user;
   }
 
-  create(user: { name: string; email: string; role: 'PATIENT' | 'ADMIN' }) {
+  create(user: { name: string; email: string; role: 'PATIENT' | 'DOCTOR' }) {
     const usersByHighestId = [...this.users].sort((a, b) => b.id - a.id);
 
     const newUser = {
@@ -64,7 +64,7 @@ export class UsersService {
     updatedUser: {
       name?: string;
       email?: string;
-      role: 'PATIENT' | 'ADMIN';
+      role: 'PATIENT' | 'DOCTOR';
     },
   ) {
     this.users = this.users.map((user) => {
