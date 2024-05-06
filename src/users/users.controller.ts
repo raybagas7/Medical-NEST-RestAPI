@@ -11,8 +11,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Prisma } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
@@ -29,7 +28,7 @@ export class UsersController {
   }
 
   @Post() // POST /users
-  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: Prisma.UsersCreateInput) {
     return this.usersService.create(createUserDto);
   }
 
@@ -37,7 +36,7 @@ export class UsersController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe)
-    updateUserDto: UpdateUserDto,
+    updateUserDto: Prisma.UsersUpdateInput,
   ) {
     return this.usersService.update(id, updateUserDto);
   }
