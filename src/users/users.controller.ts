@@ -21,7 +21,7 @@ export class UsersController {
 
   @Get(':id') // GET /users/:id
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOned(id); // convert the string to number using Unary
+    return this.usersService.findOned(id);
   }
 
   @Post() // POST /users
