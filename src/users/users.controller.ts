@@ -8,7 +8,6 @@ import {
   Post,
   Query,
   ParseIntPipe,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Prisma } from '@prisma/client';
@@ -35,7 +34,7 @@ export class UsersController {
   @Patch(':id') // PATCH /users/:id
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe)
+    @Body()
     updateUserDto: Prisma.UsersUpdateInput,
   ) {
     return this.usersService.update(id, updateUserDto);
