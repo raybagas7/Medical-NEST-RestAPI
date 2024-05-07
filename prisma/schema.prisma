@@ -20,9 +20,20 @@ model Users {
   role      Role
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  diseases  Disease[]
 }
 
 enum Role {
   PATIENT
   DOCTOR
+}
+
+model Disease {
+  id            Int       @id @default(autoincrement())
+  name          String
+  picture       String
+  patientName   String
+  patientAge    Int
+  patientId     Int
+  patient       Users     @relation(fields: [patientId], references: [id])
 }
