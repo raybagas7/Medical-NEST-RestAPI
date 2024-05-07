@@ -8,6 +8,7 @@ import {
   Post,
   Query,
   ParseIntPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Prisma } from '@prisma/client';
@@ -22,8 +23,14 @@ export class UsersController {
   }
 
   @Get(':id') // GET /users/:id
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOned(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.usersService.findOned(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
   @Post() // POST /users
@@ -32,11 +39,17 @@ export class UsersController {
   }
 
   @Patch(':id') // PATCH /users/:id
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body()
     updateUserDto: Prisma.UsersUpdateInput,
   ) {
+    const user = await this.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
     return this.usersService.update(id, updateUserDto);
   }
 
