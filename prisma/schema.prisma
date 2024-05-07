@@ -25,5 +25,4 @@ model Users {
 enum Role {
   PATIENT
   DOCTOR
-  ADMIN
 }
