@@ -68,4 +68,4 @@ To build and start the application you can run this command
   npm run start
 ```
 
-**_(Web app will run on port 3000 by default)_**
+**_(Api app will run on port 3000 by default)_**
